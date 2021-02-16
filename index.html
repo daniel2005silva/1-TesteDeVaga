@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript">
+	
+</script>
+<head>
+	<title>Delt</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse cabecalho" >
+	<div class="container">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="Imagens/logo.png" class="logo"></a>
+    </div>
+   
+   
+    	
+     	<img src="imagens/sacola.png" class="icone">
+        <span class="badge badge-light" id="carrinho"></span>
+   
+    
+  </div>
+  
+</div>
+<hr class="divisao" />
+</nav>
+ 
+<div class="container ">
+	<div class="d-flex">
+	 <div class="bg-light border-right">
+	 		
+	 			<h1>Blusas</h1>
+	 			<div class="list-group list-group-flush">CORES</div>
+	 			<div id="listaCores">
+		         
+				</div>
+
+					<br>
+	 			<div class="list-group list-group-flush">TAMANHOS</div>
+	 			<div >
+		         		<div class="row"  id="listaTamanhos">
+   
+
+     					</div>
+				</div>
+				<br>
+				<div class="list-group list-group-flush">PREÇOS</div>
+	 			<div >
+	 				
+		         		<input type="checkbox" name="Grupo" value="marca1" class="opcaoCor bg-success" onclick="agrupar()">
+		         		<label class="ltcor">de R$0 até R$50</label><br>
+		         		<input type="checkbox" name="Grupo" value="marca2" class="opcaoCor bg-success" onclick="agrupar()">
+		         		<label class="ltcor">de R$51 até R$150</label><br>
+		         		<input type="checkbox" name="Grupo" value="marca3" class="opcaoCor bg-success" onclick="agrupar()">
+		         		<label class="ltcor">de R$151 até R$300</label><br>
+		         		<input type="checkbox" name="Grupo" value="marca4" class="opcaoCor bg-success" onclick="agrupar()">
+		         		<label class="ltcor">de R$301 até R$500</label><br>
+		         		<input type="checkbox" name="Grupo" value="marca5" class="opcaoCor bg-success" onclick="agrupar()">
+		         		<label class="ltcor">a partir de R$01</label><br>
+		         	
+				</div>
+        </div>
+</div>
+
+  <select class="formlist"  id="opcaoFiltro" onChange="filtrar()">
+   		<option value="" disabled selected>Ordenar por:</option>
+   		<option value="recente" class="itemformlist" >Mais recentes</option>
+    	<option value="<preco" class="itemformlist">Menor preço</option>
+    	<option value=">preco" class="itemformlist">Maior preço</option>
+	</select>
+
+  	<div class="row"  id="corpo">
+
+ 
+
+
+
+     </div>
+
+		<a href="#" class="btn botao2" onclick="carregarDados()"><b>CARREGAR MAIS</b></a>
+
+</div>
+
+</body>
+<!-- Footer -->
+<footer class="page-footer font-small footer">
+	<br/>
+<p>DELT - E-commerce XYZ</p>
+
+</footer>
+<!-- Footer -->
+</html>
+
+<style>
+.cabecalho{
+	background-color: white;
+	border-color: white;
+}
+.logo{
+	width: 10%;
+	position: absolute	;
+	margin: 0px 0px;
+
+}
+.divisao{
+	margin-top: 30px;
+	border-color: black;
+}
+.produto, .card{
+	width: 200px;
+}
+.botao{
+	background-color: black;
+	color: white;
+	border-radius: 0px;
+}
+.botao:hover, .btnTamanho:hover, .opcaoCor:checked, .badge{
+	background-color: #70fa8c;
+}
+.card{
+	text-align: center;
+	margin-top: 30px;
+}
+#corpo{
+	margin-left: 20%;
+}
+.d-flex{
+	width: 15%;
+	height: 100%;
+	position: absolute;
+	 z-index: 1;
+}
+.btnTamanho{
+	border-radius: 0px;
+	margin: 5px 0px;
+	background-color: white;
+	border-color: black;
+}
+
+.opcaoCor{
+	all: unset;
+    border: 1px solid black;
+  	display: inline-block;
+  	 width: 15px;
+  	height: 15px;
+}
+.ltcor{
+	margin-left: 10px;
+}
+.formlist {
+	width: 20%;
+	margin-left: 70%;
+	height: 40px;
+}
+.icone{
+	margin-top: 20px;
+	margin-left: 90%;
+	width: 30px;
+}
+.botao2{
+	background-color: #70fa8c;
+	color: white;
+	margin-left: 50%;
+	margin-top: 30px;
+}
+.botao2:hover{
+	background-color:black;
+	color: white;
+}
+.badge{
+	margin-left: -10px;
+	margin-top: 30px;
+	position: absolute;
+	color: black;
+}
+.corpo{
+	height: 800px;
+}
+footer{
+	position: absolute;
+	width: 100%;
+	margin-top: 60%;
+}
+.footer{
+	background-color: black;
+	
+	
+	height: 50px;
+	color: white;
+	text-align: center;
+}
+</style>
+
+<script type="text/javascript">
+	var cores = '["Amarelo", "Azul", "Verde", "Vermelho", "Preto", "Branco", "Cinza", "Laranja", "Marrom", "Rosa"]';
+	var tamanhos = '{"tamanho": ["P", "M", "G", "GG", "U", "36", "38", "40", "42", "44", "46"]}';
+	var dados = '{ ' +
+ ' "produtos" : [' +
+ ' 	{"nome" : "camiseta mescla", ' +
+ '	 "imagem" : 1, ' +
+ '    "preco" : 28.00, ' +
+ '	  "promocao": "até 3x de R$9,33", ' +
+ '	  "cor" : "Cinza", ' +
+ '	  "tamanho" : "M" ' +
+ '	},  ' +
+ '	{"nome" : "saia em couro",  ' +
+ '	 "imagem" : 2,  ' +
+ '   "preco" : 398.00,  ' +
+ '	  "promocao": "até 5x de R$30,00",  ' +
+ '	  "cor" : "Preto", ' +
+ '	  "tamanho" : "P" ' +
+ '	},  ' +
+ '	{"nome" : "cardigan tigre", ' +
+ '	 "imagem" : 3,  ' +
+ '    "preco" : 398.00,  ' +
+ '	  "promocao": "até 5x de R$30,00", ' +
+ '	  "cor" : "Laranja", ' +
+ '	  "tamanho" : "G" ' +
+ '	},  ' +
+ '	{"nome" : "cardigan off white",  ' +
+ ' 	 "imagem" : 4,  ' +
+ '    "preco" : 99.90,  ' +
+ '	  "promocao": "até 3x de R$33,30",  ' +
+ '	  "cor" : "Branco", ' +
+ '	  "tamanho" : "M" ' +
+ '	},  ' +
+ '	{"nome" : "body leopardo",  ' +
+ ' 	 "imagem" : 5,  ' +
+ '    "preco" : 129.90,   ' +
+ '	  "promocao": "até 3x de R$43,43",  ' +
+ '	  "cor" : "Marrom", ' +
+ '	  "tamanho" : "M" ' +
+ '	},  ' +
+ '	{"nome" : "casaco pelos",  ' +
+ ' 	 "imagem" : 6,  ' +
+ '    "preco" : 398.00,  ' +
+ '	  "promocao": "até 5x de R$30,00",   ' +
+ '	  "cor" : "Rosa", ' +
+ '	  "tamanho" : "GG" ' +
+ '	},  ' +
+ '	{"nome" : "cropped stripes",  ' +
+ ' 	 "imagem" : 7,  ' +
+ '    "preco" : 120.00,  ' +
+ '	  "promocao": "até 3x de R$40,00",  ' +
+ '	  "cor" : "Amarelo", ' +
+ '	  "tamanho" : "M" ' +
+ '	},  ' +
+ '	{"nome" : "camisa transparente",  ' +
+ ' 	 "imagem" : 8,  ' +
+ '    "preco" : 398.00,  ' +
+ '	  "promocao": "até 5x de R$30,00",  ' +
+ '	  "cor" : "Preto", ' +
+ '	  "tamanho" : "P" ' +
+ '	}, ' +
+ '	{"nome" : "pochete clutch",  ' +
+ ' 	 "imagem" : 9,  ' +
+ '    "preco" : 99.00,  ' +
+ '	  "promocao": "até 3x de R$33,00",  ' +
+ '	  "cor" : "Preto", ' +
+ '	  "tamanho" : "P" ' +
+ '	}  ' +
+ ' ]  ' +
+'}';
+
+pro = JSON.parse(dados);
+cor = JSON.parse(cores);
+tamanho = JSON.parse(tamanhos);
+
+var inicial = null;
+var carrinho = 0;
+var corpo = document.getElementById('corpo');
+if(inicial == null){
+	filtrar();
+
+		
+
+}
+
+var ltcor = document.getElementById('listaCores');
+for(var i = 0; i < cor.length; i++){
+	var item = '<input type="checkbox" name="grupoCor" value="'+cor[i]+'" class="opcaoCor bg-success"  onclick="agruparCor()">' +
+		          '<label class="ltcor">'+cor[i]+'</label><br>';
+    ltcor.innerHTML = ltcor.innerHTML + item;
+}
+
+
+
+var lttamanho = document.getElementById('listaTamanhos');
+for(var i = 0; i < tamanho.tamanho.length; i++){
+	var item = '<div class="col-sm-3"><button type="button" class="btn btn-outline-dark btnTamanho" onclick="agruparTamanho()">'+
+	tamanho.tamanho[i] + '</button>' +
+	'</div>';
+    lttamanho.innerHTML = lttamanho.innerHTML + item;
+}
+
+function carregarDados(){
+	//alert("OK!");
+	this.inicial = null;
+
+}
+
+function comprar(){
+	//alert("OK!");
+	this.carrinho = this.carrinho + 1;
+	
+	var icone = document.getElementById('carrinho');
+	 icone.innerHTML = this.carrinho;
+}
+
+function filtrar(){
+	var select = document.getElementById('opcaoFiltro');
+	var value = select.options[select.selectedIndex].value;
+	var aux1;
+	var aux2;
+	var aux3;
+	var aux4;
+	var aux5;
+	var aux6;
+	if(value == "recente" || value == ""){
+		corpo.innerHTML = "";
+		pro = JSON.parse(dados);
+		
+for(var i = 0; i < pro.produtos.length; i++){
+   				//document.getElementById("nmproduto").innerHTML = obj.produtos[i].nome;
+   				
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+		}
+
+
+	}else if(value == "<preco"){
+		corpo.innerHTML = "";
+			for(var i = 0; i < pro.produtos.length; i++){
+				for(var c = i; c < pro.produtos.length; c++){
+			
+					if(pro.produtos[c].preco < pro.produtos[i].preco ){
+						aux1 = pro.produtos[c].nome;
+						aux2 = pro.produtos[c].imagem;
+						aux3 = pro.produtos[c].preco;
+						aux4 = pro.produtos[c].promocao;
+						aux5 = pro.produtos[c].cor;
+						aux6 = pro.produtos[c].tamanho;
+
+						pro.produtos[c].nome = pro.produtos[i].nome;
+						pro.produtos[c].imagem = pro.produtos[i].imagem;
+						pro.produtos[c].preco = pro.produtos[i].preco;
+						pro.produtos[c].promocao = pro.produtos[i].promocao;
+					 	pro.produtos[c].cor = pro.produtos[i].cor;
+						pro.produtos[c].tamanho = pro.produtos[i].tamanho;
+
+						pro.produtos[i].nome = aux1;
+						pro.produtos[i].imagem = aux2;
+						pro.produtos[i].preco = aux3;
+						pro.produtos[i].promocao = aux4;
+						pro.produtos[i].cor = aux5;
+						pro.produtos[i].tamanho = aux6;
+						
+					}
+				  
+				}
+			}
+
+
+
+ corpo = document.getElementById('corpo');
+		for(var i = 0; i < pro.produtos.length; i++){
+   				//document.getElementById("nmproduto").innerHTML = obj.produtos[i].nome;
+   				
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+		}
+	}else if(value == ">preco"){
+		corpo.innerHTML = "";
+			for(var i = 0; i < pro.produtos.length; i++){
+				for(var c = i; c < pro.produtos.length; c++){
+			
+					if(pro.produtos[c].preco > pro.produtos[i].preco ){
+						aux1 = pro.produtos[c].nome;
+						aux2 = pro.produtos[c].imagem;
+						aux3 = pro.produtos[c].preco;
+						aux4 = pro.produtos[c].promocao;
+						aux5 = pro.produtos[c].cor;
+						aux6 = pro.produtos[c].tamanho;
+
+						pro.produtos[c].nome = pro.produtos[i].nome;
+						pro.produtos[c].imagem = pro.produtos[i].imagem;
+						pro.produtos[c].preco = pro.produtos[i].preco;
+						pro.produtos[c].promocao = pro.produtos[i].promocao;
+					 	pro.produtos[c].cor = pro.produtos[i].cor;
+						pro.produtos[c].tamanho = pro.produtos[i].tamanho;
+
+						pro.produtos[i].nome = aux1;
+						pro.produtos[i].imagem = aux2;
+						pro.produtos[i].preco = aux3;
+						pro.produtos[i].promocao = aux4;
+						pro.produtos[i].cor = aux5;
+						pro.produtos[i].tamanho = aux6;
+						
+					}
+				  
+				}
+			}
+
+
+
+ corpo = document.getElementById('corpo');
+		for(var i = 0; i < pro.produtos.length; i++){
+   				//document.getElementById("nmproduto").innerHTML = obj.produtos[i].nome;
+   				
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+		}
+	}
+}
+
+function agrupar(){
+	var pacote = document.getElementsByName('Grupo');
+	for(var i = 0; i < pacote.length; i++){
+		if( pacote[i].checked ){
+			if(pacote[i].value == "marca1"){
+				corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+		for(var i = 0; i < pro.produtos.length; i++){
+   				//document.getElementById("nmproduto").innerHTML = obj.produtos[i].nome;
+   				if( pro.produtos[i].preco <= 50){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+				}
+
+		}
+			}else if(pacote[i].value == "marca2"){
+				corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+		for(var i = 0; i < pro.produtos.length; i++){
+   				//document.getElementById("nmproduto").innerHTML = obj.produtos[i].nome;
+   				if( pro.produtos[i].preco >= 51 && pro.produtos[i].preco <= 150){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+				}
+
+		}
+			}else if(pacote[i].value == "marca3"){
+				corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+		for(var i = 0; i < pro.produtos.length; i++){
+   				//document.getElementById("nmproduto").innerHTML = obj.produtos[i].nome;
+   				if( pro.produtos[i].preco >= 151 && pro.produtos[i].preco <= 300){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+				}
+
+		}
+			}else if(pacote[i].value == "marca4"){
+				corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+		for(var i = 0; i < pro.produtos.length; i++){
+   				//document.getElementById("nmproduto").innerHTML = obj.produtos[i].nome;
+   				if( pro.produtos[i].preco >= 301 && pro.produtos[i].preco <= 500){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+				}
+
+		}
+			}else if(pacote[i].value == "marca5"){
+				corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+		for(var i = 0; i < pro.produtos.length; i++){
+   				//document.getElementById("nmproduto").innerHTML = obj.produtos[i].nome;
+   				if( pro.produtos[i].preco >= 1){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+				}
+
+		}
+			}
+
+		}
+	}
+	
+}
+
+
+function agruparCor(){
+
+	var pacote = document.getElementsByName('grupoCor');
+
+	for(var i = 0; i < pacote.length; i++){
+
+		if( pacote[i].checked ){
+			
+			if( pacote[i].value == "Amarelo"){
+				
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Amarelo"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+					}
+				}
+
+
+				}else if( pacote[i].value == "Azul"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Azul"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+					}
+				}
+
+
+				}else if( pacote[i].value  == "Verde"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Verde"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+					}
+				}
+				
+
+				}else if( pacote[i].value  == "Vermelho"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Vermelho"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+				}
+
+			}
+				
+
+				}else if( pacote[i].value  == "Preto"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Preto"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+				}
+
+				}
+				
+
+
+				}else if( pacote[i].value  == "Branco"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Branco"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+					}
+
+				}
+				
+
+
+				}else if( pacote[i].value  == "Cinza"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Cinza"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+					}
+				
+				}
+
+				}else if( pacote[i].value  == "Laranja"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Laranja"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+					}
+				}
+				
+
+				}else if( pacote[i].value  == "Marrom"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Marrom"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+					}
+				}
+				
+
+				}else if( pacote[i].value == "Rosa"){
+   					corpo = document.getElementById('corpo');
+				corpo.innerHTML = "";
+
+
+				for(var i = 0; i < pro.produtos.length; i++){
+					if(pro.produtos[i].cor == "Rosa"){
+   				 var card = ' <div class="col-sm-4"><div class="card" >' +
+  		'<img class="card-img-top produto" src="imagens/'+ pro.produtos[i].imagem +'.jpg" alt="Card image cap">' +
+ 		 '<div class="card-body"> ' +
+    		'<h5 class="card-title" id="nmproduto"> ' +
+    			pro.produtos[i].nome.toUpperCase()+
+   			'</h5> ' +
+   			' <b>R$'+  pro.produtos[i].preco.toFixed(2)  +'</b> ' +
+   			' <p>'+  pro.produtos[i].promocao  +'</p> ' +
+   			' <a href="#" class="btn botao" onclick="comprar()"><b>COMPRAR</b></a> ' +
+  		'</div>' +
+	'</div> </div>';
+
+	corpo.innerHTML = corpo.innerHTML + card; 
+						}
+
+					}
+				}
+
+
+		}
+				
+			
+		
+		}
+
+	}
+	
+
+function agruparTamanho() {
+	alert("Função ausente!");
+} 
+</script>
+
